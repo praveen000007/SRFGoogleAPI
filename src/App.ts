@@ -15,7 +15,16 @@ class App {
 
     private loadMiddlewares(): void {
         this.express.use(bodyParser.json());
+        this.express.use(this.accesscontrol);
     }
+
+    private accesscontrol(req:any,res:any,next:any){
+        res.header('Access-Control-Allow-Methods','POST');
+        res.header('Access-Control-Allow-Origin','*');
+        res.header('Access-Control-Allow-Headers','Access-Control-Allow-Methods,Access-Control-Allow-Origin,Content-Type');
+        next();
+    }
+
 
     private routes(){
         this.express.use('/', this.router);

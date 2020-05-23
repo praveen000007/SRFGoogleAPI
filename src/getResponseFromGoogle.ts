@@ -11,8 +11,10 @@ class GetResponseFromGoogle {
     }
 
     private getResults = (req: Request, res: Response, next: NextFunction) =>{
+        console.log(req.body)
         let search=req.body.search
         googleIt({'query': search}).then((resp: any)=>{
+            console.log(resp)
             let result=resp[1]
             console.log(result)
            res.send(this.getSuccessResponse(result['snippet']))
@@ -36,7 +38,7 @@ class GetResponseFromGoogle {
     }
     private initRoutes(){
         console.log("Initializing googleResults Route")
-        this.router.get("/responseresults", this.getResults);
+        this.router.post("/responseresults", this.getResults);
     }
 }
 
